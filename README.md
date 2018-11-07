@@ -5,7 +5,8 @@ ES6学习笔记
 > **注：**由于记录此笔记时我主要使用 Swift 语言进行开发，则文中对于此时我比较混淆的地方会用 Swift 进行类比。
 >> 其它语言的比对或补充望同样在学习ES6的小伙伴也能够列举出来，提交给我，我会review内容并合并，方便一起学习！
 
-[TOC]
+## Table of Contents
+* [**var let const**](#var-let-const)
 
 ## var let const
 
