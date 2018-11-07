@@ -74,9 +74,9 @@ ES6学习笔记
 * **对比语言**
   * **Swift**
 
-         在 Swift 中声明变量的方法只有 var 属性，这个 var 在单文件中，其作用就是ES6中的 let ！
+     在 Swift 中声明变量的方法只有 var 属性，这个 var 在单文件中，其作用就是ES6中的 let ！
          
-         而 ES6 中的 const，则是声明常量的方法，作用和 Swift 里的 let 一摸一样。
+     而 ES6 中的 const，则是声明常量的方法，作用和 Swift 里的 let 一摸一样。
 
 ## 解构赋值
 
