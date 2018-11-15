@@ -546,5 +546,85 @@ ES6学习笔记
        其他的一些方法在 swift 里也有，可能也有没有的，用到的一些方法两者都是有的，反正脚本语言嘛，大多都是互相借鉴的。
   
   
+## 对象的扩展
+
+下面是普通对象类型的一个例子：
+
+```js
+let person = {
+    name: "张三",
+    birth: "1991.01.01",
+    hello() { console.log("Hello,", this.name); }
+}
+
+person.hello();
+```
+
+* **属性名表达式**
+
+  对象内部变量的引用有两种方式：
   
+  ```js
+  //方法一
+  console.log(person.name);
   
+  //方法二
+  console.log(person["name"]);
+  ```
+  
+  如果有变量型的“key”，可以用下面表示方法：
+  
+  ```js
+  let abc = "abc";
+
+  let obj = {
+      foo: true,
+      [abc]: 123
+  };  
+  //输出：123
+  console.log(obj[abc]);
+  ```
+  
+  当然，还可以表现成这样：
+  
+  ```js
+  let abc = "abc";
+  
+  let obj = {
+      ["h" + "ello"]: "Hi"
+  };  
+
+  console.log(obj.hello);
+  ```
+  
+* **Object.is()**
+
+  此方法是判断对象是否严格相等的方法，比 “===” 更加的严格，其具体严格之处有两个：1⃣️ `+0`不等于`-0`，2⃣️ `NaN`等于自身。
+  
+  ```js
+  //输出：true
+  console.log(Object.is(NaN, NaN));
+
+  //输出：false
+  console.log(Object.is({}, {}));
+  ```
+  
+* **Object.assign()**
+
+  合并对象的方法，一次性可以合并 n 个。但其是浅拷贝！
+  
+  ```js
+  const a = {a: 1};
+  const b = {a: 2, b: 3};
+  const c = {b: 4, c: 5};
+
+  Object.assign(a, b, c);
+  //输出：{ a: 2, b: 4, c: 5 }
+  console.log(a);
+  ```
+  
+* **对比语言**
+
+    * **Swift**
+
+       ES6 中对象的写法很像 Swift 中的字典，不过，功能更加强大，因为里面可以包含变量还有方法。它就是用途甚广的一个核心存在。
