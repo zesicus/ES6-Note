@@ -9,6 +9,10 @@ ES6学习笔记
 * [**解构赋值**](#解构赋值)
 * [**函数**](#函数)
 * [**数组的扩展**](#数组的扩展)
+* [**对象的扩展**](#对象的扩展)
+* [**Symbol**](#Symbol)
+* [**Set 和 Map**](#Set-和-Map)
+* [**Proxy**](#Proxy)
 
 ## var let const
 
@@ -623,8 +627,128 @@ person.hello();
   console.log(a);
   ```
   
+* **Object.getOwnPropertyDescriptors()**
+
+  返回对象自身属性的描述对象，看例子：
+  
+  ```js
+  const obj = {
+      hello: "hello",
+      say() {
+          console.log("What?");
+      }
+  }
+  /*
+  输出：
+  { hello:
+     { value: 'hello',
+       writable: true,
+       enumerable: true,
+       configurable: true },
+    say:
+     { value: [Function: say],
+       writable: true,
+       enumerable: true,
+       configurable: true } }
+  */
+  console.log(Object.getOwnPropertyDescriptors(obj));
+  ```
+  
 * **对比语言**
 
     * **Swift**
 
-       ES6 中对象的写法很像 Swift 中的字典，不过，功能更加强大，因为里面可以包含变量还有方法。它就是用途甚广的一个核心存在。
+       ES6 中对象的写法很像 Swift 中的字典，不过，功能更加强大，因为里面可以包含变量还有方法。应该是用途甚广的一个核心存在。
+       
+       
+## Symbol
+
+ES6 引入的一种新的原始数据类型 `Symbol`，用来表示独一无二的值，是JS的第七种数据类型。因为其是原始类型值，所以不可以用 `new` 初始化。
+
+```js
+let s1 = Symbol('foo');
+let s2 = Symbol('bar');
+
+s1 // Symbol(foo)
+s2 // Symbol(bar)
+
+s1.toString() // "Symbol(foo)"
+s2.toString() // "Symbol(bar)"
+```
+
+... 里面有很多使用方法，但我决定先提前略过，到用时再做记录。
+
+
+## Set 和 Map
+
+* **Set**
+
+  ES6 提供了新的数据结构`Set`, 类似于数组，但是内部成员都是唯一的，没有重复值。
+  
+* **Map**
+
+  类似于对象的键值对的集合，其“键”的范围不限于字符串，包括对象都能当作键。
+  
+* **对比语言**
+
+    * **Swift**
+       
+       对于 Swift 来说，我真正用到 `Set` 的时候，也就是对一个数组进行去重的时候。
+  
+## Proxy
+
+这个`Proxy`“代理”，做的工作正如其字面意思所述，在目标对象前进行“转发”，过滤后给你。但如果你只是设置代理，却不写任何方法，则会把原对象原封不动给你。
+
+* **get()**
+
+  对读取做拦截。
+  
+  ```js
+  let person = {
+      name: "张三"
+  };
+  
+  let proxy = new Proxy(person, {
+      get: function(target, property) {
+          if (property in target) {
+              return target[property];
+          } else {
+              throw new ReferenceError("出错啦，没有这个属性！")
+          }
+      }
+  });
+
+  //输出：张三
+  console.log(proxy.name);
+  // 报错！
+  console.log(proxy.age);
+  ```
+  
+* **set()**
+
+  对输入进行改写。
+  
+  ```js
+  let person = {
+      name: "张三"
+  };
+  
+  let proxy = new Proxy(person, {
+      set: function(target, prop, value) {
+          if (prop === 'age') {
+              if (!Number.isInteger(value)) {
+                  throw new TypeError("格式出错啦！");
+              } else if (value > 200) {
+                  throw new RangeError("你确定你见过活过200岁的人？")
+              }
+              target[prop] = value + "岁";
+          } else {
+              target[prop] = value;
+          }
+      }  
+  });
+
+  proxy.age = 11;
+  //输出：11岁
+  console.log(proxy.age);
+  ```
