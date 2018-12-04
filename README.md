@@ -14,6 +14,7 @@ ES6学习笔记
 * [**Set 和 Map**](#Set-和-Map)
 * [**Proxy**](#Proxy)
 * [**Reflect**](#Reflect)
+* [**Promise**](#Promise)
 
 ## var let const
 
@@ -865,3 +866,28 @@ s2.toString() // "Symbol(bar)"
 * **......**
 
   这些是不懂怎么具体运用的方法，先暂且跳过了。
+  
+## Promise
+
+异步的一种处理方式，基本用法如下：
+
+```js
+function timeout(ms) {
+    return new Promise((resolve, reject) => {
+        setTimeout(resolve, ms, 'Finished');
+    });
+}
+// 输出：'Finished'
+timeout(1000).then((value) => {
+    console.log(value);
+});
+```
+
+在实际运用之前决定先跳过此节，在此之前先对比一下熟悉的语言。
+
+* **对比语言**
+
+    * **Swift**
+       
+       在GitHub上有一个库，叫做`PromiseKit`，可能就是根据js的特性模仿编写出来的吧，暂时多用于网络处理。
+       
