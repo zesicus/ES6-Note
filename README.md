@@ -891,3 +891,39 @@ timeout(1000).then((value) => {
        
        在GitHub上有一个库，叫做`PromiseKit`，可能就是根据js的特性模仿编写出来的吧，暂时多用于网络处理。
        
+## Iterator
+
+提供便利的接口，下面是一个自定义`Iterator`的例子。
+
+```js
+let it = makeIterator(["a", "b"]);
+
+it.next(); //{ value: 'a', done: false }
+it.next(); //{ value: 'b', done: false }
+it.next(); //{ done: true }
+
+function makeIterator(array) {
+    var nextIndex = 0;
+    return {
+        next: function() {
+            console.log(nextIndex < array.length ?
+                {value: array[nextIndex++], done: false} :
+                {done: true});
+        }
+    };
+}
+```
+
+当然，像数组这样东西自带遍历器：
+
+```js
+let arr = ["a", "b"];
+let iter = arr[Symbol.iterator]();
+
+console.log(iter.next()); //{ value: 'a', done: false }
+console.log(iter.next()); //{ value: 'b', done: false }
+console.log(iter.next()); //{ value: undefined, done: true }
+```
+
+
+       
