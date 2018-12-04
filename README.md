@@ -768,4 +768,100 @@ s2.toString() // "Symbol(bar)"
   将`Object`对象的一些明显属于语言内部的方法，放到`Reflect`对象上。也就是说，从`Reflect`对象上，可以拿到语言内部方法。
   
 * **修改某些`Object`方法的返回结果**
+* ......
 
+有很多关于对象、`Proxy`的使用方法，由于我并没有使用过，就不列出来了。
+
+下面试验一下列出来的一些用法。
+
+* **Reflect.get(target, name)**
+
+  ```js
+  let myObject = {
+      foo: 1,
+      bar: 2,
+      get baz() {
+          return this.foo + this.bar;
+    }
+  };
+  // 输出：1
+  console.log(Reflect.get(myObject, 'foo'));
+  // 输出：2
+  console.log(Reflect.get(myObject, 'bar'));
+  // 输出：3
+  console.log(Reflect.get(myObject, 'baz'));
+  ```
+  
+  用于得到对象中元素的值。
+  
+* **Reflect.set(target, name, value)**
+
+  ```js
+  let myObject = {
+      foo: 1,
+      bar: 2,
+      get baz() {
+          return this.foo + this.bar;
+      }
+  };
+  // 输出：true
+  console.log(Reflect.set(myObject, 'foo', 2));
+  // 输出：4
+  console.log(Reflect.get(myObject, 'baz'));
+  ```
+  
+  用于修改对象中元素的值。
+  
+* **Reflect.has(obj, name)**
+
+  ```js
+  let myObject = {
+      foo: 1,
+      bar: 2,
+      get baz() {
+          return this.foo + this.bar;
+      }
+  };
+  // 输出：true
+  console.log(Reflect.has(myObject, 'foo'));
+  ```
+  
+  判断对象是否有该元素。
+  
+* **Reflect.deleteProperty(obj, name)**
+
+  ```js
+  let myObject = {
+      foo: 1,
+      bar: 2,
+      get baz() {
+          return this.foo + this.bar;
+      }
+  };
+  // 输出：true
+  console.log(Reflect.deleteProperty(myObject, 'foo'));
+  // 输出：{ bar: 2, baz: [Getter] }
+  console.log(myObject);
+  ```
+  
+  删除元素。
+  
+* **Reflect.construct(target, args)**
+
+	```js
+	function Greeting(name) {
+	    this.name = name;
+	    console.log(this.name);
+	}
+		
+	// 输出：张三
+	new Greeting("张三");
+	// 输出：李四
+	Reflect.construct(Greeting, ['李四']);
+	```
+	    
+	用`Reflect`实现初始化。
+    
+* **......**
+
+  这些是不懂怎么具体运用的方法，先暂且跳过了。
