@@ -15,6 +15,7 @@ ES6学习笔记
 * [**Proxy**](#Proxy)
 * [**Reflect**](#Reflect)
 * [**Promise**](#Promise)
+* [**Generator**](#Generator)
 
 ## var let const
 
@@ -925,5 +926,28 @@ console.log(iter.next()); //{ value: 'b', done: false }
 console.log(iter.next()); //{ value: undefined, done: true }
 ```
 
+## Generator
 
+Generator是ES6提供的一种一步解决方案，其会返回一个遍历器对象。
+
+```js
+function* gen() {
+    yield "hello";
+    yield "world";
+    return "!";
+}
+
+const result = gen();
+
+// 输出：Object [Generator] {}
+console.log(result);
+// 输出：{ value: 'hello', done: false }
+console.log(result.next());
+```
        
+* **yield**
+
+  `yield`可以说是一个暂停标志，而紧跟在后面的表达式的值，作为返回对象`value`的值。而且，只能放到`Generator`函数中使用，其他地方会报错。
+  
+待补充......
+  
