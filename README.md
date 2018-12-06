@@ -951,3 +951,50 @@ console.log(result.next());
   
 待补充......
   
+  
+## Class
+
+`Class`是ES6提供的接近传统语言写法的“类”，一个简单示例如下：
+
+```js
+class Point {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    toString() {
+        return '(' + this.x + ', ' + this.y + ')';
+    }
+}
+let point = new Point(1, 2);
+// 输出：(1, 2)
+console.log(point.toString());
+```
+
+* **prototype**
+
+  ES5中有`prototype`这个东西，在ES6中继续存在的，实际上，类的所有方法都定义在`prototype`属性上面。
+  
+  ```js
+  class Point {
+      constructor() {
+        // ...
+      }
+
+      toString() {
+        // ...
+      }
+
+      toValue() {
+        // ...
+      }
+  }
+
+  // 等同于
+
+  Point.prototype = {
+      constructor() {},
+      toString() {},
+      toValue() {},
+  };
+  ```
